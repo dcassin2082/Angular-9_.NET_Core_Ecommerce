@@ -1,0 +1,258 @@
+<div class="container">
+    <div class="row div-center">
+        <div class="container">
+            <div class="col-md-6">
+                <ngx-spinner bdColor="#333" size="medium" color="#eca511" type="cube-transition">
+                    <p class="spinner">Loading...</p>
+                </ngx-spinner>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header div-center">
+            <span class="api-title">
+                <h4>
+                    <i class="fa fa-shopping-bag fa-white fa-md"></i> Products
+                </h4>
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label for="category" class="control-label lbl-header demo-title-sm">Select Category</label>
+                    <select name="category" id="category" [(ngModel)]="productService.categoryId"
+                        (change)="getSubCategories($event.target.value)" class="form-control">
+                        <option value="-1">--Select--</option>
+                        <option *ngFor="let category of productService.productCategories"
+                            [value]="category.ProductCategoryId">
+                            {{category.CategoryName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-3" *ngIf="productService.productSubcategories">
+                    <label for="selectSubcategory" class="control-label lbl-header demo-title-sm">Subcategory</label>
+                    <select name="subcategory" id="selectSubcategory" (change)="getProducts($event.target.value)"
+                        #subcategory="ngModel" [(ngModel)]="productService.subcategory"
+                        (change)="productService.setSubcategory($event.target.value)" class="form-control">
+                        <option value="-1">--Select--</option>
+                        <option *ngFor="let subcategory of productService.productSubcategories"
+                            [value]="subcategory.ProductSubcategoryId">
+                            {{subcategory.SubCategoryName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-3" *ngIf="productService.products">
+                    <label for="selectItemsPerPage" class="control-label lbl-header demo-title-sm">Items Per
+                        Page</label>
+                    <select name="selectItemsPerPage" #selectItemsPerPage="ngModel"
+                        [(ngModel)]="productService.itemsPerPage"
+                        (change)="productService.setItemsPerPage($event.target.value)" class="form-control">
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                    </select>
+                </div>
+                <div class="col-md-3" *ngIf="productService.products && productService.itemsPerPage > 1">
+                    <label for="selectSort" class="control-label lbl-header demo-title-sm">Sort By</label>
+                    <select name="selectSort" selectSort="ngModel" [(ngModel)]="productService.sortTerm"
+                        (change)="productService.sort($event.target.value)" class="form-control">
+                        <option value="-1">--Select--</option>
+                        <option value="sort-asc">Price: low to high</option>
+                        <option value="sort-desc">Price: high to low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" *ngIf="productService.products">
+                    <div class="row mb-2" id="products-header">
+                        <div class="col-md-2 demo-title-sm">
+                            <span>{{productService.count}} items found</span>
+                        </div>
+                        <div class="col-md-2  offset-8 pb-2  pull-right">
+                            <a (click)="goToCart()">
+                                <i class="fa fa-shopping-cart fa-lg"></i> Cart
+                                ({{productService.productsCount}})
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-sku" style="display: none;">
+                        <div class="row mb-2">
+                            <div class="col" style="font-size: 14px;">
+                                {{productService.count}} items found
+                            </div>
+                            <div class="col pull-right" style="font-size: 14px;">
+                                <a (click)="goToCart()" style="color: #0028ee">
+                                    <i class="fa fa-shopping-cart fa-sm"></i> Cart
+                                    ({{productService.productsCount}})
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="products-header">
+                        <div class="col-md-4 pb-2">
+                            <h6>Product Description
+                            </h6>
+                        </div>
+                        <div class="col-md-2 pb-2">
+                            <h6>SKU
+                            </h6>
+                        </div>
+                        <div class="col-md-2 pb-2" *ngIf="productService.productCategory.CategoryName != 'Clothing'">
+                            <h6>Weight
+                            </h6>
+                        </div>
+                        <div class="col-md-2 pb-2" *ngIf="productService.productCategory.CategoryName == 'Clothing'">
+                            <h6>Size
+                            </h6>
+                        </div>
+                        <div class="col-md-2 pb-2">
+                            <h6>Price
+                            </h6>
+                        </div>
+                    </div>
+                    <hr id="product-sku" style="display: none;">
+                    <div class="row div-hover "
+                        *ngFor="let i = index;let product of productService.products | paginate: {itemsPerPage: productService.itemsPerPage, currentPage: productService.page}">
+                        <div class="col-md-4 pb-2">
+                            <p class="form-detail">
+                        
+                                <span class="lbl-detail">{{i+1}} </span>
+                                <a (click)="getProduct(product.ProductId)" data-toggle="modal"
+                                    data-target="#productModal">
+                                    <img [src]="'data:image/png;base64,' + product.ThumbnailPhoto" /> <span id="product-sku" style="display: none;"><br></span>
+                                    <span id="product-sku" style="display: none;"> Product Description:
+                                    </span>
+                                     <span
+                                        class="row-image-desc">
+                                        {{product.Name}}</span>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="col-md-2 pb-2">
+                            <span id="product-sku" style="display: none;">SKU:
+                            </span>
+                                <p class="form-detail"> {{product.Sku}}</p>
+                        </div>
+                        <div class="col-md-2 pb-2" *ngIf="productService.productCategory.CategoryName != 'Clothing'">
+                            <span id="product-sku" style="display: none;" *ngIf="product.Weight"> Weight:
+                            </span>
+                            <p class="form-detail">{{product.Weight}} {{product.WeightUnitMeasureCode}}</p>
+                        </div>
+                        <div class="col-md-2 pb-2" *ngIf="productService.productCategory.CategoryName == 'Clothing'">
+                            <span id="product-sku" style="display: none;" *ngIf="product.Size"> Size:
+                            </span>
+                            <p class="form-detail">{{product.Size}}</p>
+                        </div>
+                        <div class="col-md-2 pb-2">
+                            <span id="product-sku" style="display: none;"> Price:
+                            </span>
+                            <p class="form-detail">{{product.Price  | currency}}</p>
+                        </div>
+                        <div class="col-md-2 pb-2">
+                            <p class="form-detail">
+                                <a class="btn-add-cart" (click)="addToCart(product)">
+                                    <i class="fa fa-cart-plus fa-sm"></i> Add to Cart
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="container" *ngIf="productService.count > 5">
+                <div class="row">
+                    <div class="col">
+                        <pagination-controls boundaryLinks="true" (pageChange)="productService.page=$event"
+                            directionLinks="true" maxSize="5" previousLabel="Prev" nextLabel="Next">
+                        </pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="productModal" class="modal fade" role="dialog">
+                <div class="modal-dialog div-center">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class='col-12 modal-title text-center'><i class="fa fa-info-circle"></i> Product Info
+                                <button type="button" class="close btn-modal-close"
+                                    data-dismiss="modal">&times;</button>
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-2">
+                                <div class="col ">
+                                    <h5 class="modal-description">{{productService.product.Name}}</h5>
+                                    <img [src]="'data:image/png;base64,' + productService.product.LargePhoto" />
+                                </div>
+                            </div>
+                            <div class="row" id="products-header">
+                                <div class="col-md-3 pb-2">
+                                    <h6>SKU</h6>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Size</h6>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Weight</h6>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Price</h6>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-3 pb-2">
+                                    <span id="product-sku" style="display: none;">SKU:
+                                    </span>
+                                    <p class="modal-detail">{{productService.product.Sku}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <span id="product-sku" style="display: none;">Size:
+                                    </span>
+                                    <p class="modal-detail">{{productService.product.Size}}
+                                        {{productService.product.SizeUnitMeasureCode}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <span id="product-sku" style="display: none;" *ngIf="productService.productCategory.CategoryName != 'Clothing'">Weight:
+                                    </span>
+                                    <p class="modal-detail">{{productService.product.Weight}}
+                                        {{productService.product.WeightUnitMeasureCode}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <span id="product-sku" style="display: none;">Price:
+                                    </span>
+                                    <p class="modal-detail">{{productService.product.Price  | currency}}</p>
+                                </div>
+                                <div class="container">
+                                    <div class="row mb-2">
+                                        <div class="col modal-detail">
+                                            {{productService.product.Description}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" (click)="addToCart(productService.product)"
+                                class="btn btn-add btn-block" data-dismiss="modal">Add to
+                                Cart</button>
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

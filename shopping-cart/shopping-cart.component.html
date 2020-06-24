@@ -1,0 +1,222 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header div-center">
+            <span class="api-title">
+                <h4>
+                    <i class="fa fa-shopping-cart fa-white fa-md"></i> Shopping Cart
+                </h4>
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="row" id="products-header">
+                <div class="col-md-4 pb-2">
+                    <h6>
+                        Product Description
+                    </h6>
+                </div>
+                <div class="col-md-2 pb-2">
+                    <h6>
+                        SKU
+                    </h6>
+                </div>
+                <div class="col-md-2 pb-2">
+                    <h6>
+                        Price
+                    </h6>
+                </div>
+                <div class="col-md-1 pb-2">
+                    <h6>
+                        Qty
+                    </h6>
+                </div>
+                <div class="col-md-2 pb-2">
+                    <h6>
+                        Line Total
+                    </h6>
+                </div>
+            </div>
+            <hr id="product-sku" style="display: none;">
+            <div class="row div-hover"
+                *ngFor="let i = index;let product of shoppingCartService.selectedProducts | filterUnique">
+                <div class="col-md-4 pb-2">
+                    <p class="form-detail">
+                        <span class="lbl-detail">{{i+1}} </span>
+                        <a (click)="getProduct(product.ProductId)" data-toggle="modal" data-target="#productModal">
+                            <img [src]="'data:image/png;base64,' + product.ThumbnailPhoto" />
+                            <span id="product-sku" style="display: none;"> Product Description:
+                            </span>
+                            <span class="row-image-desc">
+                                {{product.Name}}</span>
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-2 pb-2">
+                    <span id="product-sku" style="display: none;">SKU:
+                    </span>
+                    <p class="form-detail">{{product.Sku}}</p>
+                </div>
+                <div class="col-md-2 pb-2">
+                    <span id="product-sku" style="display: none;">Price:
+                    </span>
+                    <p class="form-detail">{{product.Price  | currency}}</p>
+                </div>
+                <div class="col-md-1 pb-2">
+                    <span id="product-sku" style="display: none;">Quantity:
+                    </span>
+                    <p class="form-detail">{{product.LineCount}}</p>
+                </div>
+                <div class="col-md-2 pb-2">
+                    <span id="product-sku" style="display: none;">Line Total:
+                    </span>
+                    <p class="form-detail">{{(product.Price * product.LineCount) | currency}}</p>
+                </div>
+                <div class="col-md-1 pb-2">
+                    <p class="form-detail">
+                        <a class="btn-add-cart" title="Remove" (click)="removeCartItem(product)">
+                            <i class="fa fa-minus-circle fa-sm"></i>&nbsp;
+                        </a> 
+                        <a class="btn-add-cart" title="Remove" (click)="addToCart(product)">
+                            <i class="fa fa-plus-circle fa-sm"></i>
+                        </a>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row mb-2" id="products-header">
+                <div class="col-md-3 offset-4">
+                    <span class="lbl-total">Order
+                        Totals:</span>
+                </div>
+                <div class="col-md-2">
+                    <h6>Items</h6>
+                    <p class="form-detail">
+                        {{productService.productsCount}}
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <h6>Total Amount</h6>
+                    <p class="form-detail">
+                        {{shoppingCartService.cartTotal | currency}}
+                    </p>
+                </div>
+            </div>
+            <div class="container div-center" id="product-sku" style="display:none;">
+                <h5>
+                    Order Totals
+                </h5>
+                <p class="form-detail">
+                    Items: {{productService.productsCount}}
+                </p>
+                <p class="form-detail">
+                    Total Amount: {{shoppingCartService.cartTotal | currency}}
+                </p>
+                <div class="row mb-1">
+                    <div class="col">
+                        <button class="btn btn-block" (click)="continueShopping()" type="button">
+                            <i class="fa fa-arrow-circle-left"></i> Back
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-block" type="button" (click)="goToCheckout()">
+                            <i class="fa fa-credit-card"></i> Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="products-header">
+                <div class="col-md-2 offset-6">
+                    <button class="btn btn-block" (click)="continueShopping()" type="button">
+                        <i class="fa fa-arrow-circle-left"></i> Back
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-block" type="button" (click)="goToCheckout()">
+                        <i class="fa fa-credit-card"></i> Checkout
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="productModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog div-center">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class='col-12 modal-title text-center'><i class="fa fa-info-circle"></i> Product
+                                    Info
+                                    <button type="button" class="close btn-modal-close"
+                                        data-dismiss="modal">&times;</button>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <h5 class="modal-description">{{shoppingCartService.selectedProduct.Name}}</h5>
+                                        <img
+                                            [src]="'data:image/png;base64,' + shoppingCartService.selectedProduct.LargePhoto" />
+                                    </div>
+                                </div>
+                                <div class="row" id="products-header">
+                                    <div class="col-md-3 pb-2">
+                                        <h6>SKU</h6>
+                                    </div>
+                                    <div class="col-md-3 pb-2">
+                                        <h6>Size</h6>
+                                    </div>
+                                    <div class="col-md-3 pb-2">
+                                        <h6>Weight</h6>
+                                    </div>
+                                    <div class="col-md-3 pb-2">
+                                        <h6>Price</h6>
+                                    </div>
+                                </div>
+                                <div class="row mb-2 div-center">
+                                    <div class="col-md-3 pb-2">
+                                        <span id="product-sku" style="display: none;">SKU:
+                                        </span>
+                                        <p class="modal-detail">{{shoppingCartService.selectedProduct.Sku}}</p>
+                                    </div>
+                                    <div class="col-md-3 pb-2">
+                                        <span id="product-sku" style="display: none;">Size:
+                                        </span>
+                                        <p class="modal-detail">{{shoppingCartService.selectedProduct.Size}}
+                                            {{shoppingCartService.selectedProduct.SizeUnitMeasureCode}}</p>
+                                    </div>
+                                    <div class="col-md-3 pb-2">
+                                        <span id="product-sku" style="display: none;" *ngIf="productService.productCategory.CategoryName != 'Clothing'">Weight:
+                                        </span>
+                                        <p class="modal-detail">{{shoppingCartService.selectedProduct.Weight}}
+                                            {{shoppingCartService.selectedProduct.WeightUnitMeasureCode}}</p>
+                                    </div>
+                                    <div class="col-md-3 pb-2">
+                                        <span id="product-sku" style="display: none;">Price:
+                                        </span>
+                                        <p class="modal-detail">
+                                            {{shoppingCartService.selectedProduct.Price  | currency}}
+                                        </p>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row mb-2">
+                                            <div class="col modal-detail">
+                                                {{shoppingCartService.selectedProduct.Description}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default btn-block"
+                                    data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

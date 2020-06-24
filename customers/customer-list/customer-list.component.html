@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-4 pb-2">
+        <input id='search' type="text" name="search" [(ngModel)]="filter" placeholder="Search" class="form-control">
+        <span class="fa fa-search demo-title-sm input-img"></span>
+    </div>
+    <div class="col-md-2">
+        <button *ngIf="filter" class="btn btn-block" type="button" (click)="clearSearch()" [disabled]="!filter">
+            <i class="fa fa-repeat"> Clear</i>
+        </button>
+    </div>
+</div>
+<table class="table table-bordered table-hover table-striped  table-condensed">
+    <thead>
+        <th (click)="sort('FirstName')">
+            Name
+            <span *ngIf="key=='FirstName'">
+                <i class="fa fa-sort"></i>
+            </span>
+        </th>
+        <th (click)="sort('OrderCount')">
+            Orders
+            <span *ngIf="key=='OrderCount'">
+                <i class="fa fa-sort"></i>
+            </span>
+        </th>
+        <th (click)="sort('LastModifiedDate')">
+            Last Order 
+            <span *ngIf="key=='LastModifiedDate'">
+                <i class="fa fa-sort"></i>
+            </span>
+        </th>
+        <th (click)="sort('OrderAggregateProductTotal')">
+            Total
+            <span *ngIf="key=='OrderAggregateProductTotal'">
+                <i class="fa fa-sort"></i>
+            </span>
+        </th>
+    </thead>
+    <tbody>
+        <tr class="tr"
+            *ngFor="let i = index;let customer of customerService.customers | orderBy: key: reverse | filter: filter | paginate: {itemsPerPage: 5, currentPage: p}"
+            (click)="setClickedRow(i, customer)" [class.active]="i == selectedRow">
+            <td id="td-{{customer.CustomerId}}">
+                <i class="fa fa-user fa-xs"></i> {{customer.FirstName}} {{customer.LastName}}
+            </td>
+            <td>
+                {{customer.OrderCount}}
+            </td>
+            <td>
+                {{customer.LastModifiedDate | date: 'MM/dd/yyyy'}}
+            </td>
+            <td>
+                {{customer.OrderAggregateProductTotal | currency}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="col-md-6">
+    <pagination-controls class="pull-left" boundaryLinks="true" directionLinks="true" maxSize="5"
+        (pageChange)="pageChanged($event)" responsive="true" previousLabel="Prev" nextLabel="Next">
+    </pagination-controls>
+</div>

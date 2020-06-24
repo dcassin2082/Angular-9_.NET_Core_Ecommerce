@@ -1,0 +1,249 @@
+<div class="container">
+  <div class="row mb-4 mt-2 div-center home-background">
+    <div class="col-md-6 fadein">
+      <img class="d-block w-100" src="../../assets/img/pexels-photo-67388.jpeg">
+    </div>
+    <div class="col-md-6">
+      <p class="animate seven">
+        <span>D</span><span>a</span><span>n</span><span>i</span><span>e</span><span>l</span>&nbsp;&nbsp;<span>C</span><span>a</span><span>s</span><span>s</span><span>i</span><span>n</span>
+      </p>
+      <p class="animate six">
+        <span>S</span><span>o</span><span>f</span><span>t</span><span>w</span><span>a</span><span>r</span><span>e</span>&nbsp;
+        <span>D</span><span>e</span><span>v</span><span>e</span><span>l</span><span>o</span><span>p</span><span>e</span><span>r</span>
+      </p>
+      <br>
+      <div class="row mb-2 div-center">
+        <div class="col pb-1">
+          <p class="fadein home-subtitle">Senior Full Stack
+            .NET Developer with over ten years experience
+            on the Microsoft Stack
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="row mb-2 mt-4 div-center">
+      <div class="col-md-4 pb-1 ">
+        <h4 class="div-center animate five">
+          <span>E</span><span>n</span><span>v</span><span>i</span><span>r</span><span>o</span><span>n</span><span>m</span>
+          <span>e</span><span>n</span><span>t</span><span>s</span>
+        </h4>
+        <p class="fadein">Visual Studio, Visual Studio Code, C#, Node Package Manager,
+          Angular CLI, Azure
+        </p>
+      </div>
+      <div class="col-md-4 pb-1 ">
+        <h4 class="div-center animate five">
+          <span>F</span><span>r</span><span>a</span><span>m</span><span>e</span><span>w</span><span>o</span><span>r</span>
+          <span>k</span><span>s</span>
+        </h4>
+        <p class="fadein">.NET Framework, .NET Core, Entity Framework, Entity Framework Core, ADO.NET
+        </p>
+      </div>
+      <div class="col-md-4 pb-1 ">
+        <h4 class="div-center animate five">
+          <span>D</span><span>a</span><span>t</span><span>a</span><span>b</span><span>a</span><span>s</span><span>e</span>
+        </h4>
+        <p class="fadein">SQL Server, SSMS, Stored Procedures, Functions, Views, Indexing, Optimization,
+          Normalization </p>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-md-4 pb-1">
+        <h4 class="div-center animate five">
+          <span>F</span><span>r</span><span>o</span><span>n</span><span>t</span><span>&nbsp;</span><span>E</span><span>n</span>
+          <span>d</span>
+        </h4>
+        <p class="fadein">HTML 5, CSS, SCSS, Responsive Web Design, Angular, React,
+          Knockout, JQuery, AJAX
+        </p>
+      </div>
+      <div class="col-md-4 pb-1">
+        <h4 class="div-center animate five">
+          <span>T</span><span>y</span><span>p</span><span>e</span><span>s</span><span>c</span><span>r</span><span>i</span>
+          <span>p</span><span>t</span>
+        </h4>
+        <p class="fadein">Angular 9, Components, Templates, Models, Services, Modules, Routing, Authentication
+        </p>
+      </div>
+      <div class="col-md-4 pb-1">
+        <h4 class="div-center animate five">
+          <span>D</span><span>e</span><span>s</span><span>i</span><span>g</span><span>n</span>
+        </h4>
+        <p class="fadein">Microservices, SOA, Test Driven Development, SOLID Design Principles</p>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row mb-2 div-center">
+    <div class="col pb-1">
+      <h4 class="animate five">
+        <!-- <span>S</span><span>a</span><span>m</span><span>p</span><span>l</span><span>e</span><span>s</span> -->
+        <span>D</span><span>e</span><span>m</span><span>o</span><span>s</span>
+      </h4>
+    </div>
+  </div>
+  <div class="container div-center product-sku">
+    <div class="row mb-2">
+      <div class="col-md-3 pb-2">
+        <button class="btn btn-secondary round-button"
+          style="background-image:url({{div1}});">
+          <a [routerLink]='["../products"]'>e-Commerce</a>
+        </button>
+      </div>
+      <div class="col-md-3 pb-2">
+        <button class="btn btn-secondary round-button"
+          style="background-image:url({{div2}});">
+          <a [routerLink]='["../customers"]'>Order History</a>
+        </button>
+      </div>
+      <div class="col-md-3 pb-2">
+        <button class="btn btn-secondary round-button"
+          style="background-image:url({{div3}});">
+          <a [routerLink]='["../sales-tracker"]'>Sales Tracker </a>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid div-center">
+    <div class="row mb-4 fadein products-header">
+      <div class="col-md-4 flip-card pb-2" style="background-image:url({{div1}});">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h4>
+              e-Commerce
+            </h4>
+          </div>
+          <div class="flip-card-back" style="background-image:url({{div1}})">
+            <p class="flip-back-text">
+              Shopping cart and checkout functionality using
+              Angular 9 and .NET Core 3.1
+            </p>
+            <br>
+            <p>
+              <a class="btn btn-secondary" title="e-Commerce" [routerLinkActive]="['active']"
+                [routerLink]='["../products"]'>Visit <i class="fa fa-angle-right fa-sm fa-white"></i></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 flip-card pb-2" style="background-image:url({{div2}})">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h4>
+              Order History
+            </h4>
+          </div>
+          <div class="flip-card-back" style="background-image:url({{div2}})">
+            <p class="flip-back-text">
+              View customer order history. Track and chart data by customer, date, amount.
+            </p>
+            <br>
+            <p>
+              <a class="btn btn-secondary" title="Order History" [routerLinkActive]="['active']"
+                [routerLink]='["../customers"]'>Visit <i class="fa fa-angle-right fa-sm fa-white"></i></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 flip-card pb-2" style="background-image:url({{div3}})">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h4>
+              Sales Tracker
+            </h4>
+          </div>
+          <div class="flip-card-back" style="background-image:url({{div3}})">
+            <p>
+              View and track sales performance data with Syncfusion Angular Charts
+            </p>
+            <br>
+            <p>
+              <a class="btn btn-secondary" title="Sales Tracker" [routerLinkActive]="['active']"
+                [routerLink]='["../sales-tracker"]'>Visit <i class="fa fa-angle-right fa-sm fa-white"></i></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row mb-2 div-center">
+    <div class="col-md-12 pb-1">
+      <h4 class="animate five">
+        <span>T</span><span>o</span><span>o</span><span>l</span><span>s</span>
+      </h4>
+    </div>
+  </div> -->
+  <div class="products-header home-background" >
+    <div class="row mb-2 div-center">
+      <div class="col-md-12 pb-1">
+        <h4 class="animate five">
+          <span>T</span><span>o</span><span>o</span><span>l</span><span>s</span>
+        </h4>
+      </div>
+    </div>
+    <div class="row div-center md-2 fadein">
+      <div class="col-md-3 col-xs-6 col-sm-6 mb-2">
+        <img src="../../assets/img/vs2019_1_75.png" />
+      </div>
+      <div class="col-md-3 col-xs-6 col-sm-6 mb-2">
+        <img src="../../assets/img/netcore_new_200x100_75.jpg" />
+      </div>
+      <div class="col-md-3 col-xs-6 col-sm-6 mb-2">
+        <img src="../../assets/img/c_sharp_200x100_75.png" />
+      </div>
+      <div class="col-md-3 col-xs-6 col-sm-6 mb-2">
+        <img src="../../assets/img/react_200x100_75.png" />
+      </div>
+    </div>
+    <div class="row div-center md-2">
+      <div class="col-md-3 col-xs-6 col-sm-6 mb-2">
+        <img src="../../assets/img/Angular-9_200x100_75.jpg" />
+      </div>
+      <div class="col-md-3 col-xs-6 col-sm-6 mb-2">
+        <img src="../../assets/img/UXUI_200x100_75.png" />
+      </div>
+      <div class="col-md-3 col-xs-6 col-sm-6 mb-2">
+        <img src="../../assets/img/visual_studio_code_banner_200x100_75.png" />
+      </div>
+      <div class="col-md-3 col-xs-6 col-sm-6 mb-2">
+        <img src="../../assets/img/typescriptfeature-490x305_200x100_75.png" />
+      </div>
+    </div>
+  </div>
+  <div class="fadein product-sku">
+    <div class="row mb-2">
+      <div class="col">
+        <span class="img-margin">
+          <img src="../../assets/img/vs2019_50.png" />
+        </span>
+        <img src="../../assets/img/netcore_50.jpg" />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col">
+        <span class="img-margin">
+          <img src="../../assets/img/c_sharp_50.png" />
+        </span>
+        <img src="../../assets/img/vscode_50.png" />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col">
+        <span class="img-margin">
+          <img src="../../assets/img/Angular-9_50.jpg" />
+        </span>
+        <img src="../../assets/img/typescript_50.png" />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col">
+        <span class="img-margin">
+          <img src="../../assets/img/react_50.png" />
+        </span>
+        <img src="../../assets/img/UXUI_50.png" />
+      </div>
+    </div>
+  </div>
+</div>

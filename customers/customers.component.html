@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <ngx-spinner bdColor="#333" size="medium" color="#eca511" type="cube-transition">
+        <p class="spinner">Loading...</p>
+      </ngx-spinner>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header div-center">
+      <span class="api-title">
+        <h4><i class="fa fa-history fa-white fa-md"></i> Customer Order History</h4>
+      </span></div>
+    <div class="card-body">
+      <div class="row div-center">
+        <div class="col">
+          <p class="demo-title-lg"> 
+            Customer List</p>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col">
+          <app-customer-list></app-customer-list>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col">
+          <app-customer></app-customer>
+        </div>
+      </div>
+      <hr>
+      <div class="card div-center">
+        <div class="card-header">
+          <h4><i class="fa fa-history fa-white fa-md"></i> Preferred Customers</h4>
+        </div>
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col">
+              <app-funnel-chart></app-funnel-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,238 @@
+<div *ngIf="orderService.orders">
+    <hr>
+    <div class="row mb-2">
+        <div class="col">
+            <i class="fa fa-list demo-title-sm"></i> <span class="demo-title"> Customer Orders
+                ({{orderService.count}})</span>
+            <p class="text-danger no-content" *ngIf="!active && !orderService.orders">No orders
+                for this customer</p>
+        </div>
+    </div>
+    <div class="accordion" id="accordion">
+        <div
+            *ngFor="let i = index;let order of orderService.orders | orderBy: key: reverse | filter: filter | paginate: {id: 'pagination2', itemsPerPage: 5, currentPage: orderService.p}">
+            <div class="card">
+                <div class="header card-header">
+                    <div [attr.id]="'headingOne' + i">
+                        <a (click)="loadOrderItems(order.OrderID)" 
+                            class="btn btn-link btn-block no-focus-outline text-left btn-text" data-toggle="collapse"
+                            [attr.data-target]="'#collapseOne' + i" aria-expanded="true"
+                            [attr.aria-controls]="'#collapseOne' + i">
+                            <i class="fa fa-folder-open"></i> Order #
+                            {{ order.OrderID }} <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
+                        </a>
+                    </div>
+                </div>
+                <div [attr.id]="'collapseOne' + i" class="collapse" [attr.aria-labelledby]="'headingOne' + i"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                        <form #form="ngForm">
+                            <div class="row mb-2">
+                                <div class="col demo-title-sm pad-left pb-2">
+                                    <i class="fa fa-info-circle fa-sm"></i><span class="demo-title-sm"> Order Detail</span>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-3 pb-2">
+                                    <h6>Customer Name</h6>
+                                    <p class="form-detail">{{order.FirstName}} {{order.LastName}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Customer ID</h6>
+                                    <p class="form-detail">{{order.CustomerID}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Purchase Method</h6>
+                                    <p class="form-detail">{{order.CreatedBy}} - Web / Online</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Order ID</h6>
+                                    <p class="form-detail">{{order.OrderID}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 pb-2">
+                                    <h6>Order Date</h6>
+                                    <p class="form-detail">{{order.OrderDate | date: 'MM/dd/yyyy'}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Line Count</h6>
+                                    <p class="form-detail">{{order.ItemCount}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Ship Date</h6>
+                                    <p class="form-detail">{{order.ShipDate | date: 'MM/dd/yyyy'}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Ship Method</h6>
+                                    <p class="form-detail">{{order.Carrier}}</p>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col demo-title-sm pad-left pb-2">
+                                    <i class="fa fa-list fa-xs"></i><span class="demo-title-sm"> Order Items
+                                        ({{totalItems}})</span>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="row" id="products-header">
+                                        <div class="col-md-5 pb-2">
+                                            <h6>Item Description
+                                            </h6>
+                                        </div>
+                                        <div class="col-md-2 pb-2">
+                                            <h6>Product SKU</h6>
+                                        </div>
+                                        <div class="col-md-2 pb-2">
+                                            <h6>Price</h6>
+                                        </div>
+                                        <div class="col-md-1 pb-2">
+                                            <h6>Qty</h6>
+                                        </div>
+                                        <div class="col-md-2 pb-2">
+                                            <h6>Line Total</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row div-hover clickable-row" (click)="getProduct(orderItem.ProductID)"
+                                        data-toggle="modal" data-target="#productModal"
+                                        *ngFor="let i = index;let orderItem of orderService.orderItems">
+                                        <div class="col-md-5 pb-2">
+                                            <p class="form-detail">
+                                                <span class="lbl-detail">{{i+1}} </span>
+                                                <a>
+                                                    <img [src]='orderService.imageUrl[i]' /> 
+                                                    <span class="product-sku"> Item Description:
+                                                    </span>
+                                                    <span class="row-image-desc">
+                                                        {{orderItem.Description}}</span>
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-2 pb-2">
+                                            <span class="product-sku">SKU:
+                                            </span>
+                                            <p class="form-detail">{{orderItem.SKU}}</p>
+                                        </div>
+                                        <div class="col-md-2 pb-2">
+                                            <span class="product-sku">Price:
+                                            </span>
+                                            <p class="form-detail">{{orderItem.Price  | currency}}</p>
+                                        </div>
+                                        <div class="col-md-1 pb-2">
+                                            <span class="product-sku">Qty:
+                                            </span>
+                                            <p class="form-detail">{{orderItem.ItemCount}}</p>
+                                        </div>
+                                        <div class="col-md-2 pb-2">
+                                            <span class="product-sku">Line Total:
+                                            </span>
+                                            <p class="form-detail">{{orderItem.LineTotal  | currency}}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col demo-title-sm pb-2 pad-left">
+                                    <i class="fa fa-cart-arrow-down fa-sm"></i><span class="demo-title-sm"> Order
+                                        Totals</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 pb-2">
+                                    <h6>Sub Total</h6>
+                                    <p class="form-detail">{{order.OrderSubTotal | currency}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Shipping Charge</h6>
+                                    <p class="form-detail">{{order.ShippingCharge  | currency}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Tax</h6>
+                                    <p class="form-detail">{{order.Tax  | currency}}</p>
+                                </div>
+                                <div class="col-md-3 pb-2">
+                                    <h6>Order Total</h6>
+                                    <p class="form-detail">{{order.OrderTotal  | currency}}</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" *ngIf="orderService.count > 5">
+        <div class="row mt-4">
+            <div class="col">
+                <pagination-controls id="pagination2" boundaryLinks="true" (pageChange)="orderService.p=$event"
+                    directionLinks="true" maxSize="5" previousLabel="Prev" nextLabel="Next">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="productModal" class="modal fade" role="dialog">
+                <div class="modal-dialog div-center">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class='col-12 modal-title text-center'><i class="fa fa-info-circle"></i> Product Info
+                                <button type="button" class="close btn-modal-close"
+                                    data-dismiss="modal">&times;</button>
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <h5 class="modal-description">{{description}}</h5>
+                                    <img id="myimage" [src]='imageUrlLarge' />
+                                </div>
+                            </div>
+                            <div class="row" id="products-header">
+                                <div class="col-md-4 pb-2">
+                                    <h6>Product ID</h6>
+                                </div>
+
+                                <div class="col-md-4 pb-2">
+                                    <h6>Product SKU</h6>
+                                </div>
+                                <div class="col-md-4 pb-2">
+                                    <h6>Price</h6>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4 pb-2">
+                                    <span class="product-sku">Product Id:
+                                    </span>
+                                    <p class="modal-detail">{{productId}}</p>
+                                </div>
+                                <div class="col-md-4 pb-2">
+                                    <span class="product-sku">Product SKU:
+                                    </span>
+                                    <p class="modal-detail">{{sku}}</p>
+                                </div>
+                                <div class="col-md-4 pb-2">
+                                    <span class="product-sku">Price:
+                                    </span>
+                                    <p class="modal-detail">{{price  | currency}}</p>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row mb-2">
+                                    <div class="col modal-detail">
+                                        {{detailedDescription}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

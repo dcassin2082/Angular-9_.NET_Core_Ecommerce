@@ -1,0 +1,193 @@
+<div *ngIf="customerService.customer">
+    <hr class="products-header">
+    <div class="card-body">
+        <div class="row mb-2">
+            <div class="col">
+                <i class="fa fa-info-circle demo-title-sm"></i> <span class="demo-title"> Customer Details</span>
+            </div>
+        </div>
+        <div class="row mb-2 pad-left-20">
+            <div class="col-md-2">
+                <h6>Customer ID</h6>
+                <p class="form-detail">{{customerService.customer.CustomerId}}</p>
+            </div>
+            <div class="col-md-4">
+                <h6>Customer Name</h6>
+                <p class="form-detail">{{customerService.customer.FirstName}}
+                    {{customerService.customer.LastName}}</p>
+            </div>
+            <div class="col-md-6">
+                <h6>Address</h6>
+                <p class="form-detail">{{customerService.customer.Address}} &#9656;
+                    {{customerService.customer.City}}, {{customerService.customer.State}} &#9656;
+                    {{customerService.customer.Zip}} </p>
+            </div>
+        </div>
+        <div class="row mb-4 pad-left-20">
+            <div class="col-md-2">
+                <h6>Phone</h6>
+                <p class="form-detail">{{customerService.customer.Phone}}</p>
+            </div>
+            <div class="col-md-4">
+                <h6>Email</h6>
+                <p class="form-detail">{{customerService.customer.Email}}</p>
+            </div>
+            <div class="col-md-2">
+                <h6>Orders</h6>
+                <p class="form-detail">
+                    {{customerService.customer.OrderCount}}
+                </p>
+            </div>
+            <div class="col-md-2">
+                <h6>Average</h6>
+                <p class="form-detail">
+                    {{(customerService.customer.OrderAggregateProductTotal / customerService.customer.OrderCount) | currency}}
+                </p>
+            </div>
+            <div class="col-md-2">
+                <h6>Total</h6>
+                <p class="form-detail">
+                    {{customerService.customer.OrderAggregateProductTotal| currency}}
+                </p>
+            </div>
+        </div>
+        <!-- <div class="row product-sku hide-mobile">
+            <hr>
+            <div class="col">
+                Customer ID: <p class="form-detail">{{customerService.customer.CustomerId}}</p>
+            </div>
+        </div>
+        <div class="row product-sku hide-mobile">
+            <div class="col">
+                Name: <p class="form-detail">{{customerService.customer.FirstName}}
+                    {{customerService.customer.LastName}}</p>
+            </div>
+        </div>
+        <div class="row product-sku hide-mobile">
+            <div class="col">
+                Address: <p class="form-detail">{{customerService.customer.Address}} &#9656;
+                    {{customerService.customer.City}}, {{customerService.customer.State}} &#9656;
+                    {{customerService.customer.Zip}} </p>
+            </div>
+        </div>
+        <div class="row product-sku hide-mobile">
+            <div class="col">
+                Phone: <p class="form-detail">{{customerService.customer.Phone}}</p>
+            </div>
+        </div>
+        <div class="row product-sku hide-mobile">
+            <div class="col">
+                Email: <p class="form-detail">{{customerService.customer.Email}}</p>
+            </div>
+        </div>
+        <div class="row product-sku hide-mobile">
+            <div class="col">
+                Orders: <p class="form-detail">{{customerService.customer.OrderCount}}</p>
+            </div>
+        </div>
+        <div class="row product-sku hide-mobile">
+            <div class="col">
+                Average: <p class="form-detail">
+                    {{(customerService.customer.OrderAggregateProductTotal / customerService.customer.OrderCount) | currency}}
+                </p>
+            </div>
+        </div>
+        <div class="row product-sku hide-mobile">
+            <div class="col">
+                Total: {{customerService.customer.OrderAggregateProductTotal| currency}}
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col">
+                <app-customer-orders></app-customer-orders>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ********** SAVE THIS FOR CRUD FORM ************************************************************* -->
+<!-- <div class="row">
+    <div class="col div-center">
+        <p class="demo-title">Customer Details</p>
+    </div>
+</div>
+<form #form="ngForm" (submit)="submitForm(form)" autocomplete="off" class="crud-form">
+    <input type="hidden" name="CustomerId" #CustomerId="ngModel" [(ngModel)]="customerService.customer.CustomerId">
+    <div class="form-row mb-2">
+        <div class="col-md-6 pb-2">
+            <label for="FirstName" class="form-label">First Name</label>
+            <input type="text" name="FirstName" #FirstName="ngModel" [(ngModel)]="customerService.customer.FirstName"
+                required placeholder="First Name" class="form-control">
+            <div class="validation-error" *ngIf="FirstName.invalid && FirstName.touched">Required</div>
+        </div>
+        <div class="col-md-6 ">
+            <label for="LastName" class="form-label">Last Name</label>
+            <input type="text" name="LastName" #LastName="ngModel" [(ngModel)]="customerService.customer.LastName"
+                required placeholder="Last Name" class="form-control">
+            <div class="validation-error" *ngIf="LastName.invalid && LastName.touched">Required</div>
+        </div>
+    </div>
+    <div class="form-row mb-2">
+        <div class="col">
+            <label class="form-label">Address:</label>
+            <input type="text" name="Address" #Address="ngModel" [(ngModel)]="customerService.customer.Address" required
+                placeholder="Address" class="form-control">
+            <div class="validation-error" *ngIf="Address.invalid && Address.touched">Required</div>
+        </div>
+    </div>
+    <div class="form-row mb-2">
+        <div class="col-md-6 pb-2">
+            <label class="form-label">City:</label>
+            <input type="text" name="City" #City="ngModel" [(ngModel)]="customerService.customer.City"
+                placeholder="City" required class="form-control">
+            <div class="validation-error" *ngIf="City.invalid && City.touched">Required</div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">State:</label>
+            <select appSelectRequiredValidator name="State" #State="ngModel" [(ngModel)]="customerService.customer.State"
+              required class="form-control">
+              <option value="-1">--Select--</option>
+              <option [value]="s.Abbreviation" *ngFor="let s of stateService.states">
+                {{s.Abbreviation}} - {{s.Name}}
+              </option>
+            </select>
+            <div class="validation-error" *ngIf="State.invalid && State.touched">Required
+            </div>
+          </div>
+       
+    </div>
+    <div class="form-row mb-2">
+        <div class="col-md-4 pb-2">
+            <label class="form-label">Zip:</label>
+            <input type="text" name="Zip" #Zip="ngModel" [(ngModel)]="customerService.customer.Zip" placeholder="Zip"
+                required class="form-control">
+            <div class="validation-error" *ngIf="Zip.invalid && Zip.touched">Required</div>
+        </div>
+        <div class="col-md-8 pb-2">
+            <label class="form-label">Email:</label>
+            <input type="email" name="Email" #Email="ngModel" required [(ngModel)]="customerService.customer.Email"
+                placeholder="Email Address" class="form-control">
+            <div class="validation-error" *ngIf="Email.touched && Email.invalid">Required</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 pb-2">
+            <button class="btn btn-block" type="submit" [disabled]="!form.valid">
+                <i class="fa fa-save"> Submit</i>
+            </button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-block" (click)="resetForm(form)" type="button">
+                <i class="fa fa-repeat"> Reset</i>
+            </button>
+        </div>
+    </div>
+</form> -->
