@@ -12,9 +12,9 @@ namespace JungleApi.Web.Services
     {
         private readonly IRepository<Employee> _employeeRepo;
 
-        public EmployeeService()
+        public EmployeeService(IRepository<Employee> employeeRepo)
         {
-            _employeeRepo = _employeeRepo ?? (_employeeRepo = new Repository<Employee>(_dbContext));
+            _employeeRepo = employeeRepo;
         }
 
         public async Task<Employee> DeleteEmployee(Employee employee)
