@@ -68,7 +68,7 @@ namespace JungleApi.Web
             services.AddTransient<IChartService, ChartService>();
             services.AddTransient<ICustomerOrderService, CustomerOrderService>();
             services.AddTransient<IProductService, ProductService>();
-
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddCors();
         }
 
