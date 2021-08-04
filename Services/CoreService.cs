@@ -11,9 +11,9 @@ namespace JungleApi.Web.Services
     {
         private readonly IRepository<T> _repo;
 
-        public CoreService()
+        public CoreService(IRepository<T> repo)
         {
-            _repo = _repo ?? (_repo = new Repository<T>(_dbContext));
+            _repo = repo;
         }
 
         public void InsertCollection(IList<T> list, string sql, string parmeterName, string typeName)
