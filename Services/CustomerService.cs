@@ -11,9 +11,9 @@ namespace JungleApi.Web.Services
     {
         private readonly IRepository<Customer> _customerRepo;
 
-        public CustomerService()
+        public CustomerService(IRepository<Customer> customerRepo)
         {
-            _customerRepo = _customerRepo ?? (_customerRepo = new Repository<Customer>(_dbContext));
+            _customerRepo = customerRepo;
         }
 
         public async Task<Customer> DeleteCustomer(Customer customer)
