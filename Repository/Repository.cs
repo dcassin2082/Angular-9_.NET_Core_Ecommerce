@@ -10,7 +10,7 @@ namespace JungleApi.Web.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        internal DbContext _dbContext;
+        internal JungleDbContext _dbContext;
         internal DbSet<T> _dbSet;
 
         public Repository(DbContext dbContext)
